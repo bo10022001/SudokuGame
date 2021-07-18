@@ -1,6 +1,7 @@
 package com.google.sudokuapp;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Solver {
 
@@ -119,10 +120,31 @@ public class Solver {
             }
             else
             {
-                this.board[this.selected_row-1][this.selected_column-1]=num;
+                if(check(this.selected_row-1,this.selected_column-1)==false)
+                {
+                    this.board[this.selected_row-1][this.selected_column-1]=0;
+                    //chinh lai cho nay neu nguoi choi nhap sai.
+                }
+                else this.board[this.selected_row-1][this.selected_column-1]=num;
             }
         }
     }
+
+    public void createGameBoard(SudokuBoard display)
+    {
+        for(int i = 0; i< 20 ; i++)
+        {
+            int row = new Random().nextInt(10);
+            int col = new Random().nextInt(10);
+            if(this.board[row][col]==0)
+                this.board[row][col]=new Random().nextInt(10);
+            if(check(row,col)==false)
+                this.board[row][col]=0;
+            else display.invalidate();
+
+        }
+    }
+
     public int[][] getBoard()
     {
         return this.board;

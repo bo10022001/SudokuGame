@@ -11,7 +11,7 @@ public class MainActivity extends AppCompatActivity {
     private Solver gameBoardSolver;
 
     private Button solveBTN;
-
+    private Button startBTN;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         gameBoardSolver=gameBoard.getSolver();
 
         solveBTN = findViewById(R.id.solveButton);
+        startBTN = findViewById(R.id.startButton);
 
     }
 
@@ -88,7 +89,28 @@ public class MainActivity extends AppCompatActivity {
             gameBoard.invalidate();
         }
     }
+    public void GameStart(View view)
+    {
+        if(startBTN.getText().toString().equals(getString(R.string.start)))
+        {
+            startBTN.setText(getString(R.string.clear));
+            gameBoardSolver.getEmptyBoxIndexes();
+            CreateGameThread createGameThread = new CreateGameThread();
+            new Thread(createGameThread).start();
+            gameBoard.invalidate();
 
+        }
+        else
+        {
+            startBTN.setText(getString(R.string.start));
+            gameBoardSolver.resetBoard();
+            gameBoard.invalidate();
+        }
+    }
+    class CreateGameThread implements  Runnable{
+        @Override
+        public void run(){gameBoardSolver.createGameBoard(gameBoard);}
+    }
     class SolveBoardThread implements  Runnable{
         @Override
         public void run()
