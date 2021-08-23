@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Solver {
-
     int[][] board;
     ArrayList<ArrayList<Object>> emptyBoxIndex;
     int selected_row;
@@ -56,11 +55,11 @@ public class Solver {
             for(int r=boxRow*3;r<boxRow*3+3;r++)
                 for(int c=boxCol*3;c<boxCol*3+3;c++)
                 {
-                     if(this.board[r][c]==this.board[row][col] && row !=r
-                     && col !=c )
-                     {
-                         return false;
-                     }
+                    if(this.board[r][c]==this.board[row][col] && row !=r
+                            && col !=c )
+                    {
+                        return false;
+                    }
                 }
 
         }
@@ -132,16 +131,19 @@ public class Solver {
 
     public void createGameBoard(SudokuBoard display)
     {
-        for(int i = 0; i< 20 ; i++)
-        {
-            int row = new Random().nextInt(10);
-            int col = new Random().nextInt(10);
-            if(this.board[row][col]==0)
-                this.board[row][col]=new Random().nextInt(10);
-            if(check(row,col)==false)
-                this.board[row][col]=0;
-            else display.invalidate();
 
+        for(int i = 0;i<9;i++) {
+            for (int j = 0; j < 9; j++) {
+                if (i < 8)
+                    this.board[i][j] = new Random().nextInt(9);
+                else
+                    this.board[i][j] = new Random().nextInt(9);
+                if (check(i, j) == false)
+                    this.board[i][j] = 0;
+
+                j += new Random().nextInt(2);
+            }
+            i += new Random().nextInt(2);
         }
     }
 

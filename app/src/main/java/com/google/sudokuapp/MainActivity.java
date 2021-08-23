@@ -94,9 +94,9 @@ public class MainActivity extends AppCompatActivity {
         if(startBTN.getText().toString().equals(getString(R.string.start)))
         {
             startBTN.setText(getString(R.string.clear));
-            gameBoardSolver.getEmptyBoxIndexes();
-            CreateGameThread createGameThread = new CreateGameThread();
-            new Thread(createGameThread).start();
+            ///CreateGameThread createGameThread = new CreateGameThread();
+           /// new Thread(createGameThread).start();
+            gameBoardSolver.createGameBoard(gameBoard);
             gameBoard.invalidate();
 
         }
@@ -106,10 +106,6 @@ public class MainActivity extends AppCompatActivity {
             gameBoardSolver.resetBoard();
             gameBoard.invalidate();
         }
-    }
-    class CreateGameThread implements  Runnable{
-        @Override
-        public void run(){gameBoardSolver.createGameBoard(gameBoard);}
     }
     class SolveBoardThread implements  Runnable{
         @Override
